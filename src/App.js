@@ -10,28 +10,18 @@ import NavigationBar from "./components/NavigationBar";
 const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
-        // minHeight: "100vh",
-        // flexGrow: 1,
         flexDirection: "column"
     },
-    // paper: {
-    //   padding: theme.spacing(2),
-    //   textAlign: 'center',
-    //   color: theme.palette.text.secondary,
-    // },
+
     staticList: {
         height: "calc( 100vh - 64px )",
-        // height: "100vh",
         overflow: "auto",
-        // minWidth: "200px"
-        // background: "#3D3861"
     },
 }));
 
 
 function App() {
     const styles = useStyles();
-
 
     const [trainTravelList, setTrainTravelList] = useState(trainTravel);
 
@@ -47,7 +37,6 @@ function App() {
                                 <TravelListItem key={index} journey={item}/>
                             )
                         }
-
                     </Grid>
                     <Grid item xs={6} className={styles.staticList}>
                         <JourneyForm/>
