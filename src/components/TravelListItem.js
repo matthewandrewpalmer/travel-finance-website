@@ -46,7 +46,8 @@ function TravelListItem(props) {
                     }
                     <Typography variant="body2" color="textSecondary" component="p">
                         Ticket Type: {journey.ticket_type}
-                        Cost: {journey.cost}
+                        <br/>
+                        Cost: £{(Math.round(journey.cost * 100) / 100).toFixed(2)}
                     </Typography>
                 </CardContent>
             </CardActionArea>
