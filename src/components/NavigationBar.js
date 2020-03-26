@@ -79,7 +79,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function NavigationBar() {
+export default function NavigationBar(props) {
+    let setSearch = props.setSearch;
+
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -181,7 +183,8 @@ export default function NavigationBar() {
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Search…"
+                            placeholder="Search journeys…"
+                            onChange={(event => setSearch(event.target.value))}
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
