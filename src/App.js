@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 // import './App.css';
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {stationNames} from "./data/trainStations";
 import TravelListItem from "./components/TravelListItem";
 import {trainTravel} from "./data/trainTravel";
 import JourneyForm from "./components/JourneyForm";
+import NavigationBar from "./components/NavigationBar";
 
 const useStyles = makeStyles(theme => ({
     root: {
+        display: "flex",
+        // minHeight: "100vh",
         // flexGrow: 1,
+        flexDirection: "column"
     },
     // paper: {
     //   padding: theme.spacing(2),
@@ -18,8 +20,10 @@ const useStyles = makeStyles(theme => ({
     //   color: theme.palette.text.secondary,
     // },
     staticList: {
-        height: "100vh",
+        height: "calc( 100vh - 64px )",
+        // height: "100vh",
         overflow: "auto",
+        // minWidth: "200px"
         // background: "#3D3861"
     },
 }));
@@ -33,22 +37,20 @@ function App() {
 
     return (
         <div className="App">
+            <NavigationBar/>
             <div className={styles.root}>
-                <Grid container spacing={3}>
+
+                <Grid container>
                     <Grid item xs={6} className={styles.staticList}>
                         {
                             trainTravelList.map((item, index) =>
                                 <TravelListItem key={index} journey={item}/>
                             )
                         }
+
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={6} className={styles.staticList}>
                         <JourneyForm/>
-                        {/*    <Fragment key={index}>*/}
-                        {/*      <h1>{station.name}</h1>*/}
-                        {/*    </Fragment>*/}
-                        {/*  )*/}
-                        {/*}*/}
                     </Grid>
                 </Grid>
             </div>
