@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import DirectionsBusOutlinedIcon from '@material-ui/icons/DirectionsBusOutlined';
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles({
     card: {
@@ -48,6 +49,8 @@ function TravelListItem(props) {
                         Ticket Type: {journey.ticket_type}
                         <br/>
                         Cost: £{(Math.round(journey.cost * 100) / 100).toFixed(2)}
+                        <br/>
+                        Date: {journey.date}
                     </Typography>
                 </CardContent>
             </CardActionArea>
