@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function JourneyForm() {
+function RailJourneyForm() {
     const styles = useStyles();
 
     const [stationList, setStationList] = useState(stationNames);
@@ -258,4 +258,4 @@ function JourneyForm() {
     );
 }
 
-export default JourneyForm;
+export default RailJourneyForm;

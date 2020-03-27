@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 
-function TravelListItem(props) {
+function RailJourneyListItem(props) {
     const styles = useStyles();
 
     let index = props.index;
@@ -68,4 +68,4 @@ function TravelListItem(props) {
     )
 }
 
-export default TravelListItem;
+export default RailJourneyListItem;

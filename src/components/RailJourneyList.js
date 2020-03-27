@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import TravelListItem from "./TravelListItem";
+import RailJourneyListItem from "./RailJourneyListItem";
 import {getRailJourneys} from "../utilities/http";
 import {trainTravel} from "../data/trainTravel";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({});
 
-function TravelList(props) {
+function RailJourneyList(props) {
     const styles = useStyles();
 
     let search = props.search;
@@ -37,11 +37,11 @@ function TravelList(props) {
                     search ?
                         railJourneys.filter(item =>
                             (item.departing + item.destination).toLowerCase().includes(search.toLowerCase())).map((item, index) => (
-                            <TravelListItem key={index} journey={item}/>
+                            <RailJourneyListItem key={index} journey={item}/>
                         ))
                         :
                         railJourneys.map((item, index) =>
-                            <TravelListItem key={index} journey={item}/>
+                            <RailJourneyListItem key={index} journey={item}/>
                         )
                     :
                     <Typography>No results</Typography>
@@ -50,4 +50,4 @@ function TravelList(props) {
     )
 }
 
-export default TravelList;
+export default RailJourneyList;

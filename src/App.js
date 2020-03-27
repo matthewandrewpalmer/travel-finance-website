@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 // import './App.css';
 import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import JourneyForm from "./components/JourneyForm";
+import RailJourneyForm from "./components/RailJourneyForm";
 import NavigationBar from "./components/NavigationBar";
-import TravelList from "./components/TravelList";
+import RailJourneyList from "./components/RailJourneyList";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,11 +29,11 @@ function App() {
             <div className={styles.root}>
                 <Grid container>
                     <Grid item xs={6} className={styles.staticList}>
-                        <TravelList search={search}/>
+                        <RailJourneyList search={search}/>
                     </Grid>
                     <Grid item xs={6} className={styles.staticList}>
                         {/*<div style={{backgroundColor: "pink", width: "100%", "height": "100%"}}/>*/}
-                        <JourneyForm/>
+                        <RailJourneyForm/>
                     </Grid>
                 </Grid>
             </div>
