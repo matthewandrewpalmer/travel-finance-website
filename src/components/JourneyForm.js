@@ -22,7 +22,8 @@ import FormControl from "@material-ui/core/FormControl";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-
+import Button from "@material-ui/core/Button";
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -47,7 +48,10 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center",
         alignItems: "center",
         marginLeft: "20px"
-    }
+    },
+    button: {
+        margin: theme.spacing(1),
+    },
 }));
 
 
@@ -66,9 +70,12 @@ function JourneyForm() {
     const [journeyType, setJourneyType] = React.useState('Single');
     const [departing, setDeparting] = React.useState();
     const [destination, setDestination] = React.useState();
+    const [ticketName, setTicketName] = React.useState();
     const [date, setDate] = useState(new Date());
-    const [cost, setCost] = React.useState();
+
     const [railcardUsed, setRailcardUsed] = React.useState(false);
+    const [cost, setCost] = React.useState();
+    const [totalCost, setTotalCost] = React.useState();
 
     const MaterialInput = ({value, onClick}) => (
         <TextField id="standard-basic" label="Date" value={value} onClick={onClick}/>
@@ -149,21 +156,41 @@ function JourneyForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl fullWidth className={styles.margin}>
-                        <Autocomplete
-                            options={stationList}
-                            getOptionLabel={station => station.name + " (" + station.code + ")"}
-                            id="destination-station-field"
-                            autoHighlight
-                            value={destination}
-                            onChange={(event, newValue) => {
-                                setDestination(newValue);
-                            }}
-                            renderInput={params => (
-                                <TextField {...params} label="Destination Station" margin="normal" fullWidth/>
-                            )}
-                        />
-                    </FormControl>
+
+                    {
+                        journeyType === 'Rover' ?
+                            <FormControl fullWidth className={styles.margin}>
+                                <InputLabel htmlFor="standard-adornment-amount">Rover Name</InputLabel>
+                                <Input
+                                    id="standard-adornment-amount"
+                                    value={ticketName}
+                                    onChange={(event, newValue) => {
+                                        setTicketName(newValue);
+                                    }}
+                                />
+                            </FormControl>
+                            :
+                            journeyType !== 'PlusBus' &&
+                            <FormControl fullWidth className={styles.margin}>
+                                <Autocomplete
+                                    options={stationList}
+                                    getOptionLabel={station => station.name + " (" + station.code + ")"}
+                                    id="destination-station-field"
+                                    autoHighlight
+                                    value={destination}
+                                    onChange={(event, newValue) => {
+                                        setDestination(newValue);
+                                    }}
+                                    renderInput={params => (
+                                        <TextField {...params} label="Destination Station" margin="normal" fullWidth/>
+                                    )}
+                                />
+                            </FormControl>
+                    }
+
+
+
+
                     <FormControl fullWidth className={styles.margin}>
                         <DatePicker
                             selected={date}
@@ -187,7 +214,7 @@ function JourneyForm() {
                     />
 
                     <FormControl fullWidth className={styles.margin}>
-                        <InputLabel htmlFor="standard-adornment-amount">Total Cost</InputLabel>
+                        <InputLabel htmlFor="standard-adornment-amount">Cost</InputLabel>
                         <Input
                             id="standard-adornment-amount"
                             value={cost}
@@ -197,6 +224,33 @@ function JourneyForm() {
                             startAdornment={<InputAdornment position="start">£</InputAdornment>}
                         />
                     </FormControl>
+
+                    {
+                        railcardUsed &&
+                        <FormControl fullWidth className={styles.margin}>
+                            <InputLabel htmlFor="standard-adornment-amount">Total Cost</InputLabel>
+                            <Input
+                                id="standard-adornment-amount"
+                                value={totalCost}
+                                onChange={(event, newValue) => {
+                                    setTotalCost(newValue);
+                                }}
+                                startAdornment={<InputAdornment position="start">£</InputAdornment>}
+                            />
+                        </FormControl>
+                    }
+
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        className={styles.button}
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
+
                     {/*<TextField id="standard-basic" label="Departing" value={name} onChange={handleChange}/>*/}
                 </form>
             </Container>
