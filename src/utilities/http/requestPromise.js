@@ -22,7 +22,7 @@ function requestPromise(method, url, body = null) {
             "body": body
         })
             .then(response => {
-                console.log(response)
+                console.log(response);
                 resolve(response);
             })
             .catch(err => {
