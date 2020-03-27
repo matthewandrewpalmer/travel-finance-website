@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import DirectionsBusOutlinedIcon from '@material-ui/icons/DirectionsBusOutlined';
 import CardMedia from "@material-ui/core/CardMedia";
+import dayjs from "dayjs";
 
 const useStyles = makeStyles({
     card: {
@@ -21,11 +22,12 @@ const useStyles = makeStyles({
 function TravelListItem(props) {
     const styles = useStyles();
 
+    let index = props.index;
     let journey = props.journey;
 
 
     return (
-        <Card key={props.key} className={styles.card}>
+        <Card key={index} className={styles.card}>
             <CardActionArea>
                 {/*<CardMedia*/}
                 {/*    component="img"*/}
@@ -36,7 +38,7 @@ function TravelListItem(props) {
                 {/*/>*/}
                 <CardContent>
                     {
-                        journey.ticket_type === "PlusBus" ?
+                        journey.journey_type === "PlusBus" ?
                             <Typography gutterBottom variant="h5" component="h2">
                                 <DirectionsBusOutlinedIcon/> PlusBus {journey.departing}
                             </Typography>
@@ -46,11 +48,11 @@ function TravelListItem(props) {
                             </Typography>
                     }
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Ticket Type: {journey.ticket_type}
+                        Ticket Type: {journey.journey_type}
                         <br/>
                         Cost: £{(Math.round(journey.cost * 100) / 100).toFixed(2)}
                         <br/>
-                        Date: {journey.date}
+                        Date: {dayjs(journey.date).format('DD/MM/YYYY')}
                     </Typography>
                 </CardContent>
             </CardActionArea>
