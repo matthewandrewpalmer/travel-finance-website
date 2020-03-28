@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import DirectionsBusOutlinedIcon from '@material-ui/icons/DirectionsBusOutlined';
-import CardMedia from "@material-ui/core/CardMedia";
+import ExploreIcon from '@material-ui/icons/Explore';
 import dayjs from "dayjs";
 
 const useStyles = makeStyles({
@@ -26,6 +26,32 @@ function RailJourneyListItem(props) {
     let journey = props.journey;
 
 
+    function journeyTitle() {
+        switch (journey.journey_type) {
+            case 'PlusBus':
+                return (
+                    <Typography gutterBottom variant="h5" component="h2">
+                        <DirectionsBusOutlinedIcon/> PlusBus {journey.departing}
+                    </Typography>
+                );
+                break;
+            case 'Rover':
+                return (
+                    <Typography gutterBottom variant="h5" component="h2">
+                        <ExploreIcon/> {journey.ticket_name.String}
+                    </Typography>
+                );
+                break;
+            default:
+                return (
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {journey.departing} - {journey.destination.String}
+                    </Typography>
+                )
+        }
+    }
+
+
     return (
         <Card key={index} className={styles.card}>
             <CardActionArea>
@@ -37,16 +63,7 @@ function RailJourneyListItem(props) {
                 {/*    title="Contemplative Reptile"*/}
                 {/*/>*/}
                 <CardContent>
-                    {
-                        journey.journey_type === "PlusBus" ?
-                            <Typography gutterBottom variant="h5" component="h2">
-                                <DirectionsBusOutlinedIcon/> PlusBus {journey.departing}
-                            </Typography>
-                            :
-                            <Typography gutterBottom variant="h5" component="h2">
-                                {journey.departing} - {journey.destination}
-                            </Typography>
-                    }
+                    {journeyTitle()}
                     <Typography variant="body2" color="textSecondary" component="p">
                         Ticket Type: {journey.journey_type}
                         <br/>
