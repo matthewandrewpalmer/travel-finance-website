@@ -1,4 +1,4 @@
-import {requestPromise, requestPromiseJson} from "./requestPromise";
+import {requestPromise, requestPromiseJson, requestPromisePOSTJson} from "./requestPromise";
 
 
 function getRailJourneys() {
@@ -6,4 +6,9 @@ function getRailJourneys() {
     return requestPromiseJson("GET", url);
 }
 
-export {getRailJourneys}
+function saveRailJourney(body) {
+    let url = "/rail-journeys";
+    return requestPromisePOSTJson(url, body);
+}
+
+export {getRailJourneys, saveRailJourney}
