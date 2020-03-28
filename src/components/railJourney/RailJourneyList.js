@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import RailJourneyListItem from "./RailJourneyListItem";
-import {getRailJourneys} from "../utilities/http";
-import {trainTravel} from "../data/trainTravel";
+import {getRailJourneys} from "../../utilities/http";
+import {trainTravel} from "../../data/trainTravel";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({});

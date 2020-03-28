@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 // import './App.css';
 import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import RailJourneyForm from "./components/RailJourneyForm";
+import RailJourneyForm from "./components/railJourney/RailJourneyForm";
 import NavigationBar from "./components/NavigationBar";
-import RailJourneyList from "./components/RailJourneyList";
+import RailJourneyList from "./components/railJourney/RailJourneyList";
 
 const useStyles = makeStyles(theme => ({
     root: {

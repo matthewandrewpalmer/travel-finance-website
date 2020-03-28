@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {stationNames} from "../data/trainStations";
+import {stationNames} from "../../data/trainStations";
 import {MuiPickersUtilsProvider,} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
@@ -24,7 +24,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
-import {saveRailJourney} from "../utilities/http";
+import {saveRailJourney} from "../../utilities/http";
 
 const useStyles = makeStyles(theme => ({
     root: {
