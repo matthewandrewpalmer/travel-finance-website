@@ -9,6 +9,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import DirectionsBusOutlinedIcon from "@material-ui/icons/DirectionsBusOutlined";
 import ExploreIcon from "@material-ui/icons/Explore";
 import dayjs from "dayjs";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles({
     card: {
@@ -34,14 +35,12 @@ function RailJourneyListItem(props) {
                         <DirectionsBusOutlinedIcon/> PlusBus {journey.departing}
                     </Typography>
                 );
-                break;
             case "Rover":
                 return (
                     <Typography gutterBottom variant="h5" component="h2">
                         <ExploreIcon/> {journey.ticket_name.String}
                     </Typography>
                 );
-                break;
             default:
                 return (
                     <Typography gutterBottom variant="h5" component="h2">
@@ -55,13 +54,13 @@ function RailJourneyListItem(props) {
     return (
         <Card key={index} className={styles.card}>
             <CardActionArea>
-                {/*<CardMedia*/}
-                {/*    component="img"*/}
-                {/*    alt="Contemplative Reptile"*/}
-                {/*    height="140"*/}
-                {/*    image="/static/images/cards/contemplative-reptile.jpg"*/}
-                {/*    title="Contemplative Reptile"*/}
-                {/*/>*/}
+                <CardMedia
+                    component="img"
+                    alt="Contemplative Reptile"
+                    height="50"
+                    image="/class_800.png"
+                    title="Contemplative Reptile"
+                />
                 <CardContent>
                     {journeyTitle()}
                     <Typography variant="body2" color="textSecondary" component="p">

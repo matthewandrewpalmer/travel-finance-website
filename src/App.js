@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     staticList: {
         height: "calc( 100vh - 64px )",
         overflow: "auto",
+        backgroundColor: "#f5f5f5"
     },
     fab: {
         position: "absolute",
@@ -62,7 +63,7 @@ function App() {
                     <Grid item xs={6} className={styles.staticList}>
                         <RailJourneyList search={search}/>
                     </Grid>
-                    <Grid item xs={6} className={styles.staticList}>
+                    <Grid item xs={6}>
                         {/*<div style={{backgroundColor: "pink", width: "100%", "height": "100%"}}/>*/}
                         {
                             newJourneyFormActive ?
