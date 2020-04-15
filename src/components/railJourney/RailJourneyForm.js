@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import {stationNames} from "../../data/trainStations";
-import {MuiPickersUtilsProvider,} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import 'date-fns';
-import DatePicker from "react-datepicker"
+import {MuiPickersUtilsProvider,} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import "date-fns";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
-import PublicIcon from '@material-ui/icons/Public';
-import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import PublicIcon from "@material-ui/icons/Public";
+import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -23,7 +23,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
-import SaveIcon from '@material-ui/icons/Save';
+import SaveIcon from "@material-ui/icons/Save";
 import {saveRailJourney} from "../../utilities/http";
 
 const useStyles = makeStyles(theme => ({
@@ -56,8 +56,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function RailJourneyForm() {
+function RailJourneyForm(props) {
     const styles = useStyles();
+
+    let setNewJourneyFormActive = props.setNewJourneyFormActive;
+    let snackbarActions = props.snackbarActions;
 
     const [stationList, setStationList] = useState(stationNames);
 
@@ -68,58 +71,65 @@ function RailJourneyForm() {
     // };
 
     // Form items State
-    const [journeyType, setJourneyType] = React.useState('Single');
+    const [journeyType, setJourneyType] = React.useState("Single");
     const [departing, setDeparting] = React.useState();
     const [destination, setDestination] = React.useState();
-    const [ticketName, setTicketName] = React.useState('');
+    const [ticketName, setTicketName] = React.useState("");
     const [date, setDate] = useState(new Date());
 
     const [railcardUsed, setRailcardUsed] = React.useState(false);
-    const [cost, setCost] = React.useState('');
-    const [totalCost, setTotalCost] = React.useState('');
+    const [cost, setCost] = React.useState("");
+    const [totalCost, setTotalCost] = React.useState("");
 
     const MaterialInput = ({value, onClick}) => (
         <TextField id="standard-basic" label="Date" value={value} onClick={onClick}/>
     );
 
     const submitRailJourney = () => {
-        console.log(journeyType);
+        let railJourney = {};
 
-        let destination_string = (journeyType !== 'Rover' && journeyType !== 'PlusBus') ? {
-            String: destination.name,
-            Valid: true
-        } : {String: "", Valid: false};
-        let ticket_name_string = journeyType === 'Rover' ? {String: ticketName, Valid: true} : {
-            String: "",
-            Valid: false
-        };
-
-        let railJourney = {
-            "journey_type": journeyType,
-            "departing": departing.name,
-            "destination": destination_string,
-            "ticket_name": ticket_name_string,
-            "date": date,
-            "railcard_used": railcardUsed,
-            "cost": parseFloat(cost),
-            "total_cost": parseFloat(totalCost)
-        };
+        try {
+            let destination_string = (journeyType !== "Rover" && journeyType !== "PlusBus") ? {
+                String: destination.name,
+                Valid: true
+            } : {String: "", Valid: false};
+            let ticket_name_string = journeyType === "Rover" ? {String: ticketName, Valid: true} : {
+                String: "",
+                Valid: false
+            };
+            railJourney = {
+                "journey_type": journeyType,
+                "departing": departing.name,
+                "destination": destination_string,
+                "ticket_name": ticket_name_string,
+                "date": date,
+                "railcard_used": railcardUsed,
+                "cost": parseFloat(cost),
+                "total_cost": parseFloat(totalCost)
+            };
+        } catch (err) {
+            snackbarActions.set("Form not completely filled in", "warning");
+            snackbarActions.openSnackbar();
+            return;
+        }
 
         console.log(railJourney);
 
         saveRailJourney(railJourney)
             .then(r => {
-                console.log(r);
+                snackbarActions.set("Journey saved successfully", "success");
+                snackbarActions.openSnackbar();
+                setNewJourneyFormActive(false);
             })
             .catch(error => {
                 if (process.env.NODE_ENV === "development") {
-                    console.log(error);
-                    console.log("Error Connecting to Server, Loading mock data");
+                    snackbarActions.set("Save Failed", "error");
+                    snackbarActions.openSnackbar();
+                    console.error("Error Connecting to Server");
                 }
             });
     };
 
-    // {"id":1,"journey_type":"Single","departing":"Newport","destination":"Cardiff Central","ticket_name":" ","date":"2020-03-27T00:00:00Z","railcard_used":true,"cost":5.4,"total_cost":3.45}
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -131,11 +141,11 @@ function RailJourneyForm() {
                         <ButtonBase
                             focusRipple
                             className={styles.journeyType}
-                            onClick={() => setJourneyType('Single')}
+                            onClick={() => setJourneyType("Single")}
                         >
                             <div>
-                                <ArrowForwardIcon value={'Single'}
-                                                  color={journeyType === 'Single' ? "primary" : "disabled"}/>
+                                <ArrowForwardIcon value={"Single"}
+                                                  color={journeyType === "Single" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Single
                                 </Typography>
@@ -144,11 +154,11 @@ function RailJourneyForm() {
                         <ButtonBase
                             focusRipple
                             className={styles.journeyType}
-                            onClick={() => setJourneyType('Return')}
+                            onClick={() => setJourneyType("Return")}
                         >
                             <div>
-                                <KeyboardReturnIcon value={'Return'}
-                                                    color={journeyType === 'Return' ? "primary" : "disabled"}/>
+                                <KeyboardReturnIcon value={"Return"}
+                                                    color={journeyType === "Return" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Return
                                 </Typography>
@@ -157,10 +167,10 @@ function RailJourneyForm() {
                         <ButtonBase
                             focusRipple
                             className={styles.journeyType}
-                            onClick={() => setJourneyType('Rover')}
+                            onClick={() => setJourneyType("Rover")}
                         >
                             <div>
-                                <PublicIcon value={'Rover'} color={journeyType === 'Rover' ? "primary" : "disabled"}/>
+                                <PublicIcon value={"Rover"} color={journeyType === "Rover" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Rover
                                 </Typography>
@@ -169,11 +179,11 @@ function RailJourneyForm() {
                         <ButtonBase
                             focusRipple
                             className={styles.journeyType}
-                            onClick={() => setJourneyType('PlusBus')}
+                            onClick={() => setJourneyType("PlusBus")}
                         >
                             <div>
-                                <DirectionsBusIcon value={'PlusBus'}
-                                                   color={journeyType === 'PlusBus' ? "primary" : "disabled"}/>
+                                <DirectionsBusIcon value={"PlusBus"}
+                                                   color={journeyType === "PlusBus" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Plus Bus
                                 </Typography>
@@ -198,7 +208,7 @@ function RailJourneyForm() {
                     </FormControl>
 
                     {
-                        journeyType === 'Rover' ?
+                        journeyType === "Rover" ?
                             <FormControl fullWidth className={styles.margin}>
                                 <InputLabel htmlFor="standard-adornment-amount">Rover Name</InputLabel>
                                 <Input
@@ -208,7 +218,7 @@ function RailJourneyForm() {
                                 />
                             </FormControl>
                             :
-                            journeyType !== 'PlusBus' &&
+                            journeyType !== "PlusBus" &&
                             <FormControl fullWidth className={styles.margin}>
                                 <Autocomplete
                                     options={stationList}

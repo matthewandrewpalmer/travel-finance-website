@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -6,8 +6,8 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import DirectionsBusOutlinedIcon from '@material-ui/icons/DirectionsBusOutlined';
-import ExploreIcon from '@material-ui/icons/Explore';
+import DirectionsBusOutlinedIcon from "@material-ui/icons/DirectionsBusOutlined";
+import ExploreIcon from "@material-ui/icons/Explore";
 import dayjs from "dayjs";
 
 const useStyles = makeStyles({
@@ -28,14 +28,14 @@ function RailJourneyListItem(props) {
 
     function journeyTitle() {
         switch (journey.journey_type) {
-            case 'PlusBus':
+            case "PlusBus":
                 return (
                     <Typography gutterBottom variant="h5" component="h2">
                         <DirectionsBusOutlinedIcon/> PlusBus {journey.departing}
                     </Typography>
                 );
                 break;
-            case 'Rover':
+            case "Rover":
                 return (
                     <Typography gutterBottom variant="h5" component="h2">
                         <ExploreIcon/> {journey.ticket_name.String}
@@ -47,7 +47,7 @@ function RailJourneyListItem(props) {
                     <Typography gutterBottom variant="h5" component="h2">
                         {journey.departing} - {journey.destination.String}
                     </Typography>
-                )
+                );
         }
     }
 
@@ -69,7 +69,7 @@ function RailJourneyListItem(props) {
                         <br/>
                         Cost: £{(Math.round(journey.cost * 100) / 100).toFixed(2)}
                         <br/>
-                        Date: {dayjs(journey.date).format('DD/MM/YYYY')}
+                        Date: {dayjs(journey.date).format("DD/MM/YYYY")}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -82,7 +82,7 @@ function RailJourneyListItem(props) {
                 </Button>
             </CardActions>
         </Card>
-    )
+    );
 }
 
 export default RailJourneyListItem;
