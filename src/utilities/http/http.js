@@ -11,4 +11,4 @@ function saveRailJourney(body) {
     return requestPromisePOSTJson(url, body);
 }
 
-export {getRailJourneys, saveRailJourney}
+export {getRailJourneys, saveRailJourney};
