@@ -113,7 +113,7 @@ function RailJourneyForm(props) {
             return;
         }
 
-        console.log(railJourney);
+        console.info(railJourney);
 
         saveRailJourney(railJourney)
             .then(r => {
@@ -145,7 +145,7 @@ function RailJourneyForm(props) {
                         >
                             <div>
                                 <ArrowForwardIcon value={"Single"}
-                                                  color={journeyType === "Single" ? "primary" : "disabled"}/>
+                                    color={journeyType === "Single" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Single
                                 </Typography>
@@ -158,7 +158,7 @@ function RailJourneyForm(props) {
                         >
                             <div>
                                 <KeyboardReturnIcon value={"Return"}
-                                                    color={journeyType === "Return" ? "primary" : "disabled"}/>
+                                    color={journeyType === "Return" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Return
                                 </Typography>
@@ -183,7 +183,7 @@ function RailJourneyForm(props) {
                         >
                             <div>
                                 <DirectionsBusIcon value={"PlusBus"}
-                                                   color={journeyType === "PlusBus" ? "primary" : "disabled"}/>
+                                    color={journeyType === "PlusBus" ? "primary" : "disabled"}/>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Plus Bus
                                 </Typography>
