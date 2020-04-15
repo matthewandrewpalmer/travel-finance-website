@@ -1,4 +1,4 @@
-function requestPromiseJson(method, url, body = null) {
+function getRequestJSON(method, url, body = null) {
     return new Promise((resolve, reject) => {
         fetch(url, {
             "method": method,
@@ -14,7 +14,7 @@ function requestPromiseJson(method, url, body = null) {
     });
 }
 
-function requestPromisePOSTJson(url, body) {
+function postRequestJSON(url, body) {
     return new Promise((resolve, reject) => {
         fetch(url, {
             "method": "POST",
@@ -30,7 +30,7 @@ function requestPromisePOSTJson(url, body) {
     });
 }
 
-function requestPromise(method, url, body = null) {
+function getRequest(method, url, body = null) {
     return new Promise((resolve, reject) => {
         fetch(url, {
             "method": method,
@@ -47,4 +47,4 @@ function requestPromise(method, url, body = null) {
 }
 
 
-export {requestPromiseJson, requestPromisePOSTJson, requestPromise};
+export {getRequestJSON, postRequestJSON, getRequest};
