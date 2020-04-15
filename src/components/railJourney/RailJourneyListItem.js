@@ -54,13 +54,13 @@ function RailJourneyListItem(props) {
     return (
         <Card key={index} className={styles.card}>
             <CardActionArea>
-                <CardMedia
-                    component="img"
-                    alt="Contemplative Reptile"
-                    height="50"
-                    image="/class_800.png"
-                    title="Contemplative Reptile"
-                />
+                {/*<CardMedia*/}
+                {/*    component="img"*/}
+                {/*    alt="Class 800 Train"*/}
+                {/*    height="50"*/}
+                {/*    image="/class_800.png"*/}
+                {/*    title="Class 800 Train"*/}
+                {/*/>*/}
                 <CardContent>
                     {journeyTitle()}
                     <Typography variant="body2" color="textSecondary" component="p">

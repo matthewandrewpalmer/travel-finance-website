@@ -24,6 +24,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import CloseIcon from "@material-ui/icons/Close";
 import {saveRailJourney} from "../../utilities/http";
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +63,7 @@ function RailJourneyForm(props) {
     let setNewJourneyFormActive = props.setNewJourneyFormActive;
     let snackbarActions = props.snackbarActions;
 
-    const [stationList, setStationList] = useState(stationNames);
+    const stationList = stationNames;
 
 
     // const [name, setName] = React.useState();
@@ -117,15 +118,20 @@ function RailJourneyForm(props) {
 
         saveRailJourney(railJourney)
             .then(r => {
-                snackbarActions.set("Journey saved successfully", "success");
-                snackbarActions.openSnackbar();
-                setNewJourneyFormActive(false);
+                if (r.status === "OK") {
+                    snackbarActions.set("Journey saved successfully", "success");
+                    snackbarActions.openSnackbar();
+                    setNewJourneyFormActive(false);
+                } else {
+                    snackbarActions.set("Save Failed", "error");
+                    snackbarActions.openSnackbar();
+                }
             })
             .catch(error => {
                 if (process.env.NODE_ENV === "development") {
                     snackbarActions.set("Save Failed", "error");
                     snackbarActions.openSnackbar();
-                    console.error("Error Connecting to Server");
+                    console.error("Error Connecting to Server" + error);
                 }
             });
     };
@@ -294,6 +300,16 @@ function RailJourneyForm(props) {
                         onClick={() => submitRailJourney()}
                     >
                         Save
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        size="large"
+                        className={styles.button}
+                        startIcon={<CloseIcon/>}
+                        onClick={() => setNewJourneyFormActive(false)}
+                    >
+                        Cancel
                     </Button>
 
                     {/*<TextField id="standard-basic" label="Departing" value={name} onChange={handleChange}/>*/}
