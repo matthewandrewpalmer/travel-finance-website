@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import RailJourneyListItem from "./RailJourneyListItem";
-import { getRailJourneys } from "../../utilities/http";
-import { trainTravel } from "../../data/trainTravel";
-import Typography from "@material-ui/core/Typography";
+import {getRailJourneys} from "../../utilities/http";
+import {trainTravel} from "../../data/trainTravel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-
-const useStyles = makeStyles(theme => ({
-
-}));
+const useStyles = makeStyles(theme => ({}));
 
 
 function RailJourneyList(props) {
     const styles = useStyles();
-
-
 
     let search = props.search;
     let [railJourneys, setRailJourneys] = React.useState(null);
@@ -23,13 +17,11 @@ function RailJourneyList(props) {
     const getRailJourneysList = () => {
         getRailJourneys()
             .then(r => {
-                console.log(r);
                 setRailJourneys(r);
             })
             .catch(error => {
                 if (process.env.NODE_ENV === "development") {
-                    console.log(error);
-                    console.log("Error Connecting to Server, Loading mock data");
+                    console.error("Error Connecting to Server, Loading mock data");
                     setRailJourneys(trainTravel);
                 }
             });
@@ -44,11 +36,11 @@ function RailJourneyList(props) {
                     search ?
                         railJourneys.filter(item =>
                             (item.departing + item.destination).toLowerCase().includes(search.toLowerCase())).map((item, index) => (
-                            <RailJourneyListItem key={index} journey={item} />
+                            <RailJourneyListItem key={index} journey={item}/>
                         ))
                         :
                         railJourneys.map((item, index) =>
-                            <RailJourneyListItem key={index} journey={item} />
+                            <RailJourneyListItem key={index} journey={item}/>
                         )
                     :
                     <div>
